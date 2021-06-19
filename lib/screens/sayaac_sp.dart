@@ -10,13 +10,13 @@ class SayacPage extends StatefulWidget {
 class _SayacPageState extends State<SayacPage> {
   late int _counter;
 
-  Future<void> sharedPreferencesHazirla() async{
+  Future<void> readySharedPreferences() async{
     var sharedPreferences = await SharedPreferences.getInstance();
     _counter = sharedPreferences.getInt("sayac") ?? 0;
     setState(() {});
   }
 
-  Future<void> veriKaydet() async {
+  Future<void> saveData() async {
     var sharedPreferences = await SharedPreferences.getInstance();
     _counter += 1;
     sharedPreferences.setInt("sayac", _counter);
@@ -25,7 +25,7 @@ class _SayacPageState extends State<SayacPage> {
   @override
   void initState() {
     super.initState();
-    sharedPreferencesHazirla();
+    readySharedPreferences();
   }
 
   @override
@@ -40,7 +40,7 @@ class _SayacPageState extends State<SayacPage> {
         floatingActionButton: FloatingActionButton(
           onPressed: (){
             setState(() {
-              veriKaydet();
+              saveData();
             });
           },
           child: Icon(Icons.add),
